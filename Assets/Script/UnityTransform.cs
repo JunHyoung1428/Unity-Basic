@@ -69,6 +69,12 @@ public class UnityTransform : MonoBehaviour
 		transform.LookAt(new Vector3(0, 0, 0), Vector3.right);
 	}
 
+	//<트랜스폼의 축>
+	private void Axis()
+	{
+		Vector3 forward = transform.forward; //해당 트랜스폼의 Z 축
+	}
+
 	// <Quarternion & Euler>
 	// Quarternion	: 유니티의 게임오브젝트의 3차원 방향을 저장하고 이를 방향에서 다른 방향으로의 상대 회전으로 정의
 	//				  기하학적 회전으로 짐벌락 현상이 발생하지 않음

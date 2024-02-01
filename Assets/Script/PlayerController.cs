@@ -19,11 +19,12 @@ public class PlayerController : MonoBehaviour
     {
         float xInput = Input.GetAxis("Horizontal");
         float zInput = Input.GetAxis("Vertical");
+        float yInput = Input.GetAxis("Jump");
 
         float xSpeed = xInput * speed;
         float zSpeed = zInput * speed;
 
-        newVector = new Vector3(xSpeed, 0f, zSpeed);
+        newVector = new Vector3(xSpeed*Time.deltaTime, yInput * Time.deltaTime*speed, zSpeed*Time.deltaTime);
 
     }
 
