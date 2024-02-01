@@ -32,6 +32,9 @@ public class UnityTransform : MonoBehaviour
 		transform.Translate(1, 0, 0, Space.World);
 		// 로컬을 기준으로 이동
 		transform.Translate(1, 0, 0, Space.Self); // 기본적으로 Space.Self;
+
+		//쿼터뷰면 보통은 월드기준, 이외 1인칭 3인칭의 경우 로컬 기준으로 함
+
 		// 다른 대상을 기준으로 이동
 		transform.Translate(1, 0, 0, Camera.main.transform);
 	}
@@ -72,7 +75,13 @@ public class UnityTransform : MonoBehaviour
 	//<트랜스폼의 축>
 	private void Axis()
 	{
+		Vector3 right = transform.right; //해당 트랜스폼의 X 축
 		Vector3 forward = transform.forward; //해당 트랜스폼의 Z 축
+		Vector3 up = transform.up; // 해당 트랜스폼의 Y 축
+
+		//transform.forward = right; 이런식의 지정도 가능함 
+
+		
 	}
 
 	// <Quarternion & Euler>
