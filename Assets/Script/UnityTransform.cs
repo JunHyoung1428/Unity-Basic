@@ -31,7 +31,7 @@ public class UnityTransform : MonoBehaviour
 		// 월드를 기준으로 이동
 		transform.Translate(1, 0, 0, Space.World);
 		// 로컬을 기준으로 이동
-		transform.Translate(1, 0, 0, Space.Self);
+		transform.Translate(1, 0, 0, Space.Self); // 기본적으로 Space.Self;
 		// 다른 대상을 기준으로 이동
 		transform.Translate(1, 0, 0, Camera.main.transform);
 	}
