@@ -5,27 +5,34 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
+
+
+    float xInput=0;
+    float zInput =0;
+    float yInput=0;
     public float speed = 8.0f;
+    public float jumpPower = 1.0f;
 
     Vector3 newVector;
     // Start is called before the first frame update
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertical");
-        float yInput = Input.GetAxis("Jump");
+        xInput = Input.GetAxis("Horizontal");
+        zInput = Input.GetAxis("Vertical");
+        //yInput = Input.GetAxis("Jump");
 
-        float xSpeed = xInput * speed;
-        float zSpeed = zInput * speed;
-
-        newVector = new Vector3(xSpeed*Time.deltaTime, yInput * Time.deltaTime*speed, zSpeed*Time.deltaTime);
-
+        newVector = new Vector3(xInput*Time.deltaTime*speed, 0f, zInput*Time.deltaTime*speed);
+        if (Input.GetKey(KeyCode.Space)==true)
+        {
+            playerRigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        }
     }
 
     private void FixedUpdate()
