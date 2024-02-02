@@ -6,13 +6,13 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TankController : MonoBehaviour
 {
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
     public GameObject shellPrefab;
     private Transform[] other;
 
   
     public Transform firePoint;
-    
+    public float fireSpeed = 500.0f;
 
     private float moveSpeed = 8.0f;
     private float rotationSpeed = 60.0f;
@@ -32,11 +32,7 @@ public class TankController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private void FixedUpdate()
+    private void Update()
     {
         transform.Translate(0f,0f, newVector.x*Time.deltaTime*moveSpeed);
         transform.Rotate(0f, newVector.z* rotationSpeed*Time.deltaTime, 0f);
@@ -51,6 +47,7 @@ public class TankController : MonoBehaviour
 
     void OnJump(InputValue value)
     {
+        /*
         float jumpFlag = value.Get<float>();
         if (jumpFlag != 0 && !IsJump)
         {
@@ -58,7 +55,7 @@ public class TankController : MonoBehaviour
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             IsJump = true;
             StartCoroutine(JumpCoolTime());
-        }
+        }*/
     }
 
     void OnFire(InputValue value)
@@ -67,8 +64,8 @@ public class TankController : MonoBehaviour
         firePoint = other[6];
         GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation) as GameObject;
         Rigidbody bulletAddforce = shell.GetComponent<Rigidbody>();
-        bulletAddforce.AddForce(firePoint.forward * 2000.0f);
-        Destroy(shell, 1.5f);
+        bulletAddforce.AddForce(firePoint.forward * 1000.0f);
+        Destroy(shell, 5.0f);
     }
 
     IEnumerator JumpCoolTime()
