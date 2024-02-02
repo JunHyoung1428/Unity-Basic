@@ -2,16 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class TankController : MonoBehaviour
 {
     private Rigidbody rigidbody;
-   
+    public GameObject shellPrefab;
+    private Transform[] other;
+
+  
+    public Transform firePoint;
+    
 
     private float moveSpeed = 8.0f;
     private float rotationSpeed = 60.0f;
-    private float jumpForce = 5f;
+    private float jumpForce = 7.0f;
     private float ShakeAmount = 0.5f;
+
+    private WaitForSeconds cooltime = new WaitForSeconds(1.5f);
+    private bool IsJump =false;
+
 
     Vector3 newVector;
 
@@ -42,18 +52,28 @@ public class TankController : MonoBehaviour
     void OnJump(InputValue value)
     {
         float jumpFlag = value.Get<float>();
-        if (jumpFlag != 0)
+        if (jumpFlag != 0 && !IsJump)
         {
             Debug.Log("OnJump");
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            IsJump = true;
+            StartCoroutine(JumpCoolTime());
         }
     }
 
     void OnFire(InputValue value)
     {
-        //Camera.main.transform.position = Random.insideUnitSphere * ShakeAmount + Camera.main.transform.position; 
+        other = GetComponentsInChildren<Transform>();
+        firePoint = other[6];
+        GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation) as GameObject;
+        Rigidbody bulletAddforce = shell.GetComponent<Rigidbody>();
+        bulletAddforce.AddForce(firePoint.forward * 2000.0f);
+        Destroy(shell, 1.5f);
     }
 
-   
-
+    IEnumerator JumpCoolTime()
+    {
+        yield return cooltime;
+        IsJump = false;
+    }
 }
