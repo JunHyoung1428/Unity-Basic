@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShellController : MonoBehaviour
 {
-    float shellSpeed = 50.0f;
     public ParticleSystem explosion;
 
     // Start is called before the first frame update
@@ -21,7 +20,6 @@ public class ShellController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTrigger");
         explosion.transform.position = transform.position;
         explosion.transform.parent = null;
         explosion.Play();
