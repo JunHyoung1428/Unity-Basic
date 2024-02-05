@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,9 @@ public class TankController : MonoBehaviour
 
     private WaitForSeconds cooltime = new WaitForSeconds(1.5f);
     private bool IsJump =false;
+
+    public CinemachineVirtualCamera zoomCamera;
+    public CinemachineVirtualCamera nomalCamera;
 
 
     Vector3 newVector;
@@ -85,5 +89,19 @@ public class TankController : MonoBehaviour
     {
         yield return cooltime;
         IsJump = false;
+    }
+
+    public void OnZoom(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Debug.Log("Zoom On");
+            zoomCamera.Priority = 50;
+        }
+        else
+        {
+            Debug.Log("Zoom off");
+            zoomCamera.Priority = 1;
+        }
     }
 }
