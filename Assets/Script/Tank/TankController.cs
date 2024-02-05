@@ -25,7 +25,7 @@ public class TankController : MonoBehaviour
     private bool IsJump =false;
 
     public CinemachineVirtualCamera zoomCamera;
-    public CinemachineVirtualCamera nomalCamera;
+    public CinemachineVirtualCamera normalCamera;
 
 
     Vector3 newVector;
