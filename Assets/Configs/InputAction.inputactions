@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Zom",
+                    "type": "PassThrough",
+                    "id": "effa580c-4442-473d-ad26-9a12a987f670",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -313,6 +322,17 @@
                     "action": "MoveTurret",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "9c7eaed9-9c54-47cb-a728-9ef602103a53",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
