@@ -10,7 +10,7 @@ public class CamController : MonoBehaviour
     public float distance = 3;
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         xmove += Input.GetAxis("Mouse X"); 
         ymove -= Input.GetAxis("Mouse Y"); 
