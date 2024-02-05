@@ -60,7 +60,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Zom",
+                    "name": "Zoom",
                     "type": "PassThrough",
                     "id": "effa580c-4442-473d-ad26-9a12a987f670",
                     "expectedControlType": "Button",
@@ -330,7 +330,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zom",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
