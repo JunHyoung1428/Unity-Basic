@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TankController : MonoBehaviour
 {
-    private new Rigidbody rigidbody;
+    private new Rigidbody rigidbody; //new 
     public GameObject shellPrefab;
     private Transform[] other;
 
@@ -18,6 +18,7 @@ public class TankController : MonoBehaviour
     private float rotationSpeed = 60.0f;
     private float jumpForce = 7.0f;
     private float ShakeAmount = 0.5f;
+    private float maxSpeed =10f;
 
     private WaitForSeconds cooltime = new WaitForSeconds(1.5f);
     private bool IsJump =false;
@@ -34,8 +35,20 @@ public class TankController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        transform.Translate(0f,0f, newVector.x*Time.deltaTime*moveSpeed);
+        //transform.Translate(0f,0f, newVector.x*Time.deltaTime*moveSpeed); //좌표 이동이라, 충돌 연산이 명확하지 않음, Rigidbody를 움직이는게 권장됨.
         transform.Rotate(0f, newVector.z* rotationSpeed*Time.deltaTime, 0f);
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 forceDir = transform.forward * newVector.x;
+        rigidbody.AddForce(forceDir * moveSpeed*2, ForceMode.Force);
+
+        if(rigidbody.velocity.magnitude > maxSpeed) //최고 속도 제한
+        {
+            rigidbody.velocity =rigidbody.velocity.normalized * maxSpeed;
+        }
+        //FixedUpdate 안에서 구현됨으로,초당 0.2회 호출이 보장됨으로 deltaTime을 안 곱해줘도 됨. 
     }
 
     void OnMove(InputValue value)
