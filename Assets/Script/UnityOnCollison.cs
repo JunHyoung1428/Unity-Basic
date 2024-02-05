@@ -67,7 +67,7 @@ public class UnityOnCollison : MonoBehaviour
 
     // (3) 키네마틱 충돌체 (Kinematic Collider)
     // Kinematic Rigidbody가 있는 충돌체, 외부의 힘에 반응하지 않음
-    // 움직이지만 외부 충격에는 밀리지 않는 물체(밀어내는 장애물, 미닫이문 등)등 에 사용
+    // 움직이지만 외부 충격에는 밀리지 않는 물체(밀어내는 장애물, 미닫이문 등)등 에 사용 //예) 폴가이즈의 장애물
     // kinematic 상태를 활성화/비활성화 하여 움직임 여부를 설정할 경우 사용
 
 
