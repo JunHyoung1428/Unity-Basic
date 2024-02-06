@@ -32,7 +32,7 @@ public class NewTurretController : MonoBehaviour
         newVector.x= input.y*-1;
     }
 
-    void OnJump(InputValue value)
+    public void OnJump(InputValue value)
     {
         if (!isFire)
         {

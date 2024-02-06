@@ -28,6 +28,7 @@ public class TankController : MonoBehaviour
     public CinemachineVirtualCamera zoomCamera;
     public CinemachineVirtualCamera normalCamera;
 
+    public Animator animatior;
 
     Vector3 newVector;
 
@@ -65,33 +66,20 @@ public class TankController : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        /*
-        float jumpFlag = value.Get<float>();
-        if (jumpFlag != 0 && !IsJump)
-        {
-            Debug.Log("OnJump");
-            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            IsJump = true;
-            StartCoroutine(JumpCoolTime());
-        }*/
+        Debug.Log("SetTrigger Fire");
+        animatior.SetTrigger("Fire");
     }
 
-    void OnFire(InputValue value)
+    /*void OnFire(InputValue value)
     {
         other = GetComponentsInChildren<Transform>();
         firePoint = other[6];
         GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation) as GameObject;
         Rigidbody bulletAddforce = shell.GetComponent<Rigidbody>();
         bulletAddforce.AddForce(firePoint.forward * 1000.0f);
+        //animatior.SetTrigger("Fire");
         Destroy(shell, 5.0f);
-    }
-
-    IEnumerator JumpCoolTime()
-    {
-        yield return cooltime;
-        IsJump = false;
-    }
-
+    }*/
     public void OnZoom(InputValue value)
     {
         if (value.isPressed)
