@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.GraphicsBuffer;
@@ -101,6 +102,18 @@ public class TankController : MonoBehaviour
         else
         {
             Debug.Log("Zoom off");
+            zoomCamera.Priority = 1;
+        }
+    }
+
+    public void OnZoomWithWheel(InputValue value)
+    {
+        Vector2 input = value.Get<Vector2>();
+        if(input.y > 0)
+        {
+            zoomCamera.Priority = 50;
+        }else if(input.y < 0)
+        {
             zoomCamera.Priority = 1;
         }
     }
