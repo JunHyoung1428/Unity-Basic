@@ -1,10 +1,13 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 using static UnityEngine.GraphicsBuffer;
+using System;
 
 public class TankController : MonoBehaviour
 {
@@ -15,6 +18,7 @@ public class TankController : MonoBehaviour
   
     public Transform firePoint;
     public float fireSpeed = 500.0f;
+    public float chargeSpeed = 500.0f;
 
     private float moveSpeed = 8.0f;
     private float rotationSpeed = 60.0f;
@@ -23,12 +27,15 @@ public class TankController : MonoBehaviour
     private float maxSpeed =10f;
 
     private WaitForSeconds cooltime = new WaitForSeconds(1.5f);
-    private bool IsJump =false;
+    private bool isFire =false;
 
     public CinemachineVirtualCamera zoomCamera;
     public CinemachineVirtualCamera normalCamera;
 
     public Animator animatior;
+
+    public UnityEvent OnFireing;
+    public UnityEvent OnFired;
 
     Vector3 newVector;
 
@@ -43,6 +50,10 @@ public class TankController : MonoBehaviour
     {
         //transform.Translate(0f,0f, newVector.x*Time.deltaTime*moveSpeed); //좌표 이동이라, 충돌 연산이 명확하지 않음, Rigidbody를 움직이는게 권장됨.
         transform.Rotate(0f, newVector.z* rotationSpeed*Time.deltaTime, 0f);
+        if (isFire)
+        {
+            fireSpeed += chargeSpeed * Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
@@ -66,20 +77,32 @@ public class TankController : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        Debug.Log("SetTrigger Fire");
-        animatior.SetTrigger("Fire");
+        if (!isFire)
+        {
+            isFire = true;
+        }
+        else
+        {
+            Fire();
+            isFire = false;
+        }
     }
 
-    /*void OnFire(InputValue value)
+    public void Fire()
     {
-        other = GetComponentsInChildren<Transform>();
-        firePoint = other[6];
-        GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation) as GameObject;
+        OnFireing?.Invoke();
+        firePoint = GameObject.FindWithTag("FirePoint").transform;
+        GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation);
         Rigidbody bulletAddforce = shell.GetComponent<Rigidbody>();
-        bulletAddforce.AddForce(firePoint.forward * 1000.0f);
-        //animatior.SetTrigger("Fire");
+        bulletAddforce.AddForce(firePoint.forward * fireSpeed);
         Destroy(shell, 5.0f);
-    }*/
+        fireSpeed = 500.0f;
+
+        //씬 어디에 있든 받아다 쓸 수 있음
+        Manager.Data.AddFireCount();
+    }
+
+
     public void OnZoom(InputValue value)
     {
         if (value.isPressed)
