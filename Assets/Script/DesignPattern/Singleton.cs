@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -48,5 +49,26 @@ public class SingleTon
             return instance; //이 메서드에 대한 그다음 호출들은 모두 캐시된 객체를 반환.
         }
     }
-    
+
+	public void Logic()
+	{
+		//...
+	}
+}
+
+public class Program
+{
+	public void Main()
+	{
+		//SingleTon singleTon = new SingleTon(); // 생성자로는 외부에서 접근할 수 없음
+
+		SingleTon instance = SingleTon.Instance;
+		SingleTon isOtherInstance = SingleTon.Instance;
+
+		if(instance == isOtherInstance)
+		{
+			Console.WriteLine("같은 인스턴스입니다.");
+		}
+		
+	}
 }
