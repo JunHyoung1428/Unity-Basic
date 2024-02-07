@@ -34,7 +34,7 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "524af0f1-b756-440f-814c-d92a559c1519",
                     "expectedControlType": "Button",
                     "processors": "",
